@@ -1,13 +1,24 @@
 import { EventEmitter } from '@angular/core';
 
 import { Recipe } from '../domain/recipe';
+import { Ingredient } from '../domain/ingredient';
 
 export class RecipesService {
   private recipes: Recipe[] = [
-    new Recipe("A test recipe1", "Simply a test recipe1", "https://cdn.pixabay.com/photo/2016/02/02/15/33/dishes-1175493_960_720.jpg"),
-    new Recipe("A test recipe2", "Simply a test recipe2", "https://www.bensound.com/bensound-img/jazzcomedy.jpg"),
-    new Recipe("A test recipe3", "Simply a test recipe3", "https://www.bensound.com/bensound-img/clearday.jpg"),
-    new Recipe("A test recipe4", "Simply a test recipe4", "https://www.notetab.com/images/More-free-time-thanks-to-NoteTab.jpg")
+    new Recipe("Tasty Schnitzel",
+               "Super tasty schnitzel",
+               "https://upload.wikimedia.org/wikipedia/commons/a/ae/Wiener-Schnitzel02.jpg",
+               [
+                 new Ingredient("Meat", 1),
+                 new Ingredient("French Fries", 20)
+               ]),
+    new Recipe("Big fat burger",
+               "Tasty but unhealthy",
+               "https://upload.wikimedia.org/wikipedia/commons/6/65/Jumbo_Burger_The_Home_Chef_India.jpg",
+               [
+                 new Ingredient("Buns", 2),
+                 new Ingredient("Meat", 1)
+               ])
   ];
 
   recipeSelected: EventEmitter<Recipe>;
