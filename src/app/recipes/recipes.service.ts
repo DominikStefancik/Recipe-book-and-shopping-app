@@ -16,7 +16,7 @@ export class RecipesService {
     this.recipeSelected = new EventEmitter<Recipe>();
   }
 
-  getRecipes() {
+  getRecipes():Recipe[] {
     return this.recipes.slice(); // get a copy of the recipes array, so other object cannot change the original
   }
 }
