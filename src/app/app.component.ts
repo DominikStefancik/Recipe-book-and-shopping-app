@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Section } from './domain/section';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +7,5 @@ import { Section } from './domain/section';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // this is needed in order to use enums in template
-  Section = Section;
-  visibleSection: Section;
-
-  onNavigate(section: Section) {
-    this.visibleSection = section;
-  }
+  constructor(private router: Router) {}
 }

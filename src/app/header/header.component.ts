@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Section } from '../domain/section';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,15 +6,9 @@ import { Section } from '../domain/section';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  Section = Section;
-  @Output() navigate: EventEmitter<Section> = new EventEmitter<Section>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-  }
-
-  onNavigationItemClick(section: Section) {
-    this.navigate.emit(section);
   }
 }

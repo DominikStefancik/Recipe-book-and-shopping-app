@@ -1,13 +1,13 @@
 <nav class="navbar navbar-default">
   <div class="conainer-fluid">
     <div class="navbar-header">
-      <a href="#" class="navbar-brand">Recipe book</a>
+      <a class="navbar-brand" [routerLink]="['/']">Recipe book</a>
     </div>
 
     <div class="navbar-default">
       <ul class="nav navbar-nav">
-        <li><a href="#" (click)="onNavigationItemClick(Section.RECIPES)">Recipes</a></li>
-        <li><a href="#" (click)="onNavigationItemClick(Section.SHOPPING_LIST)">Shopping list</a></li>
+        <li><a [routerLink]="['/recipes']">Recipes</a></li>
+        <li><a [routerLink]="['/shopping-list']">Shopping list</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" appDropdown>
