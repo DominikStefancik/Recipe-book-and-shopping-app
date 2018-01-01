@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Recipe } from '../domain/recipe';
 import { Ingredient } from '../domain/ingredient';
@@ -20,20 +20,32 @@ export class RecipesService {
                [
                  new Ingredient("Buns", 2),
                  new Ingredient("Meat", 1)
+               ]),
+    new Recipe("Strawberry and Kiwi cake",
+               "Delicious",
+               "https://upload.wikimedia.org/wikipedia/commons/6/67/Pavlova_dessert.JPG",
+               [
+                 new Ingredient("Strawberries", 30),
+                 new Ingredient("Kiwis", 20),
+                 new Ingredient("Flour", 1)
                ])
   ];
 
-  recipeSelected: EventEmitter<Recipe>;
-
-  constructor (private shoppingListService: ShoppingListService) {
-    this.recipeSelected = new EventEmitter<Recipe>();
-  }
+  constructor (private shoppingListService: ShoppingListService) {}
 
   getRecipes():Recipe[] {
     return this.recipes.slice(); // get a copy of the recipes array, so other object cannot change the original
   }
 
-  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+  getRecipe(index: number):Recipe {
+    return this.recipes[index];
+  }
+
+  getRecipeId(recipe: Recipe):number {
+    return this.recipes.indexOf(recipe);
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]):void {
     this.shoppingListService.addIngredients(ingredients);
   }
 }

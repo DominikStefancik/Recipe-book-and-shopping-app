@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { Recipe } from '../../domain/recipe';
 import { RecipesService } from '../recipes.service';
@@ -9,11 +10,16 @@ import { RecipesService } from '../recipes.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-  @Input() recipe: Recipe;
+  recipe: Recipe;
 
-  constructor(private recipesService: RecipesService) { }
+  constructor(private route: ActivatedRoute,
+              private recipesService: RecipesService) { }
 
   ngOnInit() {
+    this.route.params
+      .subscribe((params: Params) => {
+        this.recipe = this.recipesService.getRecipe(+params['id']);
+      })
   }
 
   onAddIngredientsToShoppingList() {
