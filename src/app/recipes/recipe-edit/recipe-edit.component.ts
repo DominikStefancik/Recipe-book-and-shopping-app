@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../../domain/recipe';
@@ -11,12 +11,21 @@ import { Recipe } from '../../domain/recipe';
 })
 export class RecipeEditComponent implements OnInit {
   recipe: Recipe;
+  id: number;
+  editMode: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private recipesService: RecipesService) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    this.recipe = this.recipesService.getRecipe(id);
+    this.route.params
+      .subscribe((params: Params) => {
+        this.id = +params['id'];
+        this.editMode = params['id'] != null;
+
+        if (this.editMode) {
+          this.recipe = this.recipesService.getRecipe(this.id);
+        }
+      });
   }
 }

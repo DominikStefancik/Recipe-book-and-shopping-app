@@ -11,7 +11,6 @@ import { RecipesService } from '../recipes.service';
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
-  id: number;
 
   constructor(private route: ActivatedRoute,
               private recipesService: RecipesService) { }
@@ -19,8 +18,7 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe((params: Params) => {
-        this.id = +params['id'];
-        this.recipe = this.recipesService.getRecipe(this.id);
+        this.recipe = this.recipesService.getRecipe(+params['id']);
       })
   }
 

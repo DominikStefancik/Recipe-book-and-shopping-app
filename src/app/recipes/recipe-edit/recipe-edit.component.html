@@ -1,1 +1,6 @@
-<h1>{{ recipe.name}}</h1>
+<div *ngIf="editMode; else newRecipe">
+  <h1>{{ recipe.name }}</h1>
+</div>
+<ng-template #newRecipe>
+  <h1>Create a new recipe</h1>
+</ng-template>
