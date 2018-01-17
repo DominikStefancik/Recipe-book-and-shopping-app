@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { ShoppingListService } from '../shopping-list.service';
 
@@ -8,18 +9,18 @@ import { ShoppingListService } from '../shopping-list.service';
   styleUrls: ['./shopping-list-edit.component.css']
 })
 export class ShoppingListEditComponent implements OnInit {
-  @ViewChild("nameInput") nameInput: ElementRef;
-  @ViewChild("amountInput") amountInput: ElementRef;
+  @ViewChild("f") shoppingListForm: NgForm;
 
   constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit() {
   }
 
-  onAddClicked():void {
+  onAddItem():void {
+    const value = this.shoppingListForm.value;
     this.shoppingListService.addIngredient({
-      name: this.nameInput.nativeElement.value,
-      amount: this.amountInput.nativeElement.value
+      name: value.name,
+      amount: value.amount
     });
   }
 }
