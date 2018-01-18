@@ -4,6 +4,8 @@ import { Ingredient } from '../domain/ingredient';
 
 export class ShoppingListService {
   ingredientsChanged: Subject<Ingredient[]>;
+  ingredientEditingStarted: Subject<number>;
+
   private ingredients: Ingredient[] = [
     new Ingredient("Apple", 5),
     new Ingredient("Orange", 10)
@@ -11,6 +13,11 @@ export class ShoppingListService {
 
   constructor() {
     this.ingredientsChanged = new Subject<Ingredient[]>();
+    this.ingredientEditingStarted = new Subject<number>();
+  }
+
+  getIngredient(index: number): Ingredient {
+    return this.ingredients[index];
   }
 
   getIngredients():Ingredient[] {
@@ -24,6 +31,11 @@ export class ShoppingListService {
 
   addIngredients(ingredients: Ingredient[]):void {
     this.ingredients.push(...ingredients);
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient): void {
+    this.ingredients[index] = newIngredient;
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 }
