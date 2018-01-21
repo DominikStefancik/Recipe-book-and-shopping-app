@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../../domain/recipe';
@@ -44,17 +44,17 @@ export class RecipeEditComponent implements OnInit {
                           : [];
 
     this.recipeForm = this.formBuilder.group({
-      'name' : this.formBuilder.control(recipeName),
-      'imageUrl' : this.formBuilder.control(recipeImageUrl),
-      'description' : this.formBuilder.control(recipeDescription),
+      'name' : this.formBuilder.control(recipeName, Validators.required),
+      'imageUrl' : this.formBuilder.control(recipeImageUrl, Validators.required),
+      'description' : this.formBuilder.control(recipeDescription, Validators.required),
       'ingredients' : this.formBuilder.array(recipeIngredients)
     });
   }
 
   private createIngredientRow(name: string, amount: number): FormGroup {
     return this.formBuilder.group({
-      'name' : this.formBuilder.control(name),
-      'amount' : this.formBuilder.control(amount)
+      'name' : this.formBuilder.control(name, Validators.required),
+      'amount' : this.formBuilder.control(amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
     });
   }
 
