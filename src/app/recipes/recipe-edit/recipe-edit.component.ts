@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../../domain/recipe';
@@ -60,5 +60,10 @@ export class RecipeEditComponent implements OnInit {
 
   onSave(): void {
     console.log(this.recipeForm);
+  }
+
+  onAddIngredient(): void {
+    const ingredients = this.recipeForm.get('ingredients') as FormArray;
+    ingredients.push(this.createIngredientRow(null, null));
   }
 }
