@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../../domain/recipe';
+import { Ingredient } from '../../domain/ingredient';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -59,7 +60,14 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onSave(): void {
-    console.log(this.recipeForm);
+    if (this.editMode) {
+      // the "recipe.value" object contains all data which are necessary to create a new Recipe object
+      // since the names of the fields are the same as names in the Recipe constructor we can pass directly
+      // the "recipeForm.value" as a recipe object and don't have to call the Recipe contructor explicitly
+      this.recipesService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipesService.addRecipe(this.recipeForm.value);
+    }
   }
 
   onAddIngredient(): void {

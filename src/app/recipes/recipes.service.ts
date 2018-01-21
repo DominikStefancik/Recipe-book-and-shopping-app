@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 import { Recipe } from '../domain/recipe';
 import { Ingredient } from '../domain/ingredient';
@@ -6,6 +7,8 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class RecipesService {
+  recipesChanged: Subject<Recipe[]>;
+
   private recipes: Recipe[] = [
     new Recipe("Tasty Schnitzel",
                "Super tasty schnitzel",
@@ -31,7 +34,9 @@ export class RecipesService {
                ])
   ];
 
-  constructor (private shoppingListService: ShoppingListService) {}
+  constructor (private shoppingListService: ShoppingListService) {
+    this.recipesChanged = new Subject<Recipe[]>();
+  }
 
   getRecipes():Recipe[] {
     return this.recipes.slice(); // get a copy of the recipes array, so other object cannot change the original
@@ -39,6 +44,16 @@ export class RecipesService {
 
   getRecipe(index: number):Recipe {
     return this.recipes[index];
+  }
+
+  addRecipe(recipe: Recipe): void {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.getRecipes());
+  }
+
+  updateRecipe(index: number, newRecipe: Recipe): void {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.getRecipes());
   }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]):void {
