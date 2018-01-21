@@ -56,6 +56,11 @@ export class RecipesService {
     this.recipesChanged.next(this.getRecipes());
   }
 
+  deleteRecipe(index: number): void {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.getRecipes());
+  }
+
   addIngredientsToShoppingList(ingredients: Ingredient[]):void {
     this.shoppingListService.addIngredients(ingredients);
   }
