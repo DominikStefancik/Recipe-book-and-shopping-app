@@ -82,6 +82,11 @@ export class RecipeEditComponent implements OnInit {
     ingredients.push(this.createIngredientRow(null, null));
   }
 
+  onDeleteIngredient(index: number): void {
+    const ingredients = this.recipeForm.get('ingredients') as FormArray;
+    ingredients.removeAt(index);
+  }
+
   private navigateToParent(): void {
     this.router.navigate(['..'], { 'relativeTo' : this.route })
   }
