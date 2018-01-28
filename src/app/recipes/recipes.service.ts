@@ -39,11 +39,16 @@ export class RecipesService {
   }
 
   getRecipes():Recipe[] {
-    return this.recipes.slice(); // get a copy of the recipes array, so other object cannot change the original
+    return this.recipes.slice(); // get a copy of the recipes array, so other objects cannot change the original
   }
 
   getRecipe(index: number):Recipe {
     return this.recipes[index];
+  }
+
+  setRecipes(recipes: Recipe[]):void {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.getRecipes());
   }
 
   addRecipe(recipe: Recipe): void {

@@ -18,4 +18,8 @@ export class HeaderComponent implements OnInit {
         alert('The recipes have been successfully saved!')
       });
   }
+
+  onFetchData() {
+    this.recipesBackendService.getRecipes();
+  }
 }
