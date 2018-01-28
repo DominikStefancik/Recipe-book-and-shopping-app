@@ -14,8 +14,16 @@ export class RecipesBackendService {
 
   getRecipes() {
     return this.http.get(firebaseBackendUrl)
-      .subscribe((response) => {
+      .map((response) => {
         const recipes: Recipe[] = response.json();
+        recipes.forEach(recipe => {
+          if (!recipe['ingredients']) {
+            recipe['ingredients'] = [];
+          }
+        })
+        return recipes;
+      })
+      .subscribe((recipes: Recipe[]) => {
         this.recipesService.setRecipes(recipes);
       });
   }
