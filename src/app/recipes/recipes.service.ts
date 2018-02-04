@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs/Subject";
 
-import { Recipe } from '../domain/recipe';
-import { Ingredient } from '../domain/ingredient';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Recipe } from "../domain/recipe";
+import { Ingredient } from "../domain/ingredient";
+import { ShoppingListService } from "../shopping-list/shopping-list.service";
 
 @Injectable()
 export class RecipesService {
@@ -38,15 +38,15 @@ export class RecipesService {
     this.recipesChanged = new Subject<Recipe[]>();
   }
 
-  getRecipes():Recipe[] {
+  getRecipes(): Recipe[] {
     return this.recipes.slice(); // get a copy of the recipes array, so other objects cannot change the original
   }
 
-  getRecipe(index: number):Recipe {
+  getRecipe(index: number): Recipe {
     return this.recipes[index];
   }
 
-  setRecipes(recipes: Recipe[]):void {
+  setRecipes(recipes: Recipe[]): void {
     this.recipes = recipes;
     this.recipesChanged.next(this.getRecipes());
   }
@@ -66,7 +66,7 @@ export class RecipesService {
     this.recipesChanged.next(this.getRecipes());
   }
 
-  addIngredientsToShoppingList(ingredients: Ingredient[]):void {
+  addIngredientsToShoppingList(ingredients: Ingredient[]): void {
     this.shoppingListService.addIngredients(ingredients);
   }
 }

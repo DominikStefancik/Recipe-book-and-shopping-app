@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { NgForm } from "@angular/forms";
+import { Subscription } from "rxjs/Subscription";
 
-import { ShoppingListService } from '../shopping-list.service';
-import { Ingredient } from '../../domain/ingredient';
+import { ShoppingListService } from "../shopping-list.service";
+import { Ingredient } from "../../domain/ingredient";
 
 @Component({
-  selector: 'app-shopping-list-edit',
-  templateUrl: './shopping-list-edit.component.html',
-  styleUrls: ['./shopping-list-edit.component.css']
+  selector: "app-shopping-list-edit",
+  templateUrl: "./shopping-list-edit.component.html",
+  styleUrls: ["./shopping-list-edit.component.css"]
 })
 export class ShoppingListEditComponent implements OnInit, OnDestroy {
   @ViewChild("f") shoppingListForm: NgForm;
   ingredientEditingStartedSubscription: Subscription;
-  editMode: boolean = false;
+  editMode = false;
   editingIngredientIndex: number;
   editedIngredient: Ingredient;
 
@@ -28,21 +28,21 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
         this.shoppingListForm.setValue({
           name: this.editedIngredient.name,
           amount: this.editedIngredient.amount
-        })
+        });
       }
-    )
+    );
   }
 
   ngOnDestroy() {
     this.ingredientEditingStartedSubscription.unsubscribe();
   }
 
-  onAddOrUpdateIngredient():void {
+  onAddOrUpdateIngredient(): void {
     const value = this.shoppingListForm.value;
     const newIngredient = {
       name: value.name,
       amount: value.amount
-    }
+    };
 
     if (this.editMode) {
       this.shoppingListService.updateIngredient(this.editingIngredientIndex, newIngredient);

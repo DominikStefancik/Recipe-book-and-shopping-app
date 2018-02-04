@@ -1,7 +1,7 @@
-import { Directive, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, Renderer2 } from "@angular/core";
 
 @Directive({
-  selector: '[appDropdown]'
+  selector: "[appDropdown]"
 })
 export class DropdownDirective implements OnInit {
   private isDropdownOpen: boolean;
@@ -12,7 +12,7 @@ export class DropdownDirective implements OnInit {
     this.isDropdownOpen = false;
   }
 
-  @HostListener('click') onDropdownClick() {
+  @HostListener("click") onDropdownClick() {
     this.isDropdownOpen = !this.isDropdownOpen;
     if (this.isDropdownOpen) {
       this.renderer.addClass(this.elementRef.nativeElement, "open");

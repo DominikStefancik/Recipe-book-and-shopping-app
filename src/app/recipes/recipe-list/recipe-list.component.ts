@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs/Subscription";
 
-import { Recipe } from '../../domain/recipe';
-import { RecipesService } from '../recipes.service';
+import { Recipe } from "../../domain/recipe";
+import { RecipesService } from "../recipes.service";
 
 @Component({
-  selector: 'app-recipe-list',
-  templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+  selector: "app-recipe-list",
+  templateUrl: "./recipe-list.component.html",
+  styleUrls: ["./recipe-list.component.css"]
 })
 export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
@@ -20,7 +20,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       (recipes: Recipe[]) => {
         this.recipes = recipes;
       }
-    )
+    );
     this.recipes = this.recipesService.getRecipes();
   }
 

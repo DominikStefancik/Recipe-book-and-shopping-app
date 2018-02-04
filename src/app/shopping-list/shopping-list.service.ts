@@ -1,6 +1,6 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from "rxjs/Subject";
 
-import { Ingredient } from '../domain/ingredient';
+import { Ingredient } from "../domain/ingredient";
 
 export class ShoppingListService {
   ingredientsChanged: Subject<Ingredient[]>;
@@ -20,16 +20,16 @@ export class ShoppingListService {
     return this.ingredients[index];
   }
 
-  getIngredients():Ingredient[] {
+  getIngredients(): Ingredient[] {
     return this.ingredients.slice();
   }
 
-  addIngredient(ingredient:Ingredient):void {
+  addIngredient(ingredient: Ingredient): void {
     this.ingredients.push(ingredient);
     this.ingredientsChanged.next(this.getIngredients());
   }
 
-  addIngredients(ingredients: Ingredient[]):void {
+  addIngredients(ingredients: Ingredient[]): void {
     this.ingredients.push(...ingredients);
     this.ingredientsChanged.next(this.getIngredients());
   }
@@ -41,6 +41,6 @@ export class ShoppingListService {
 
   deleteIngredient(index: number): void {
     this.ingredients.splice(index, 1);
-    this.ingredientsChanged.next(this.getIngredients())
+    this.ingredientsChanged.next(this.getIngredients());
   }
 }

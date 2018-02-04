@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/Rx';
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
+import "rxjs/add/operator/map";
 
-import { Recipe } from '../domain/recipe';
-import { RecipesService } from './recipes.service'
+import { Recipe } from "../domain/recipe";
+import { RecipesService } from "./recipes.service";
 
-const firebaseBackendUrl = 'https://recipe-book-dc112.firebaseio.com/recipes.json';
+const firebaseBackendUrl = "https://recipe-book-dc112.firebaseio.com/recipes.json";
 
 @Injectable()
 export class RecipesBackendService {
@@ -17,10 +17,10 @@ export class RecipesBackendService {
       .map((response) => {
         const recipes: Recipe[] = response.json();
         recipes.forEach(recipe => {
-          if (!recipe['ingredients']) {
-            recipe['ingredients'] = [];
+          if (!recipe["ingredients"]) {
+            recipe["ingredients"] = [];
           }
-        })
+        });
         return recipes;
       })
       .subscribe((recipes: Recipe[]) => {
