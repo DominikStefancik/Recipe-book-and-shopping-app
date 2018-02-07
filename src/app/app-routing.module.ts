@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { AppComponent } from "./app.component";
+import { SignInComponent } from "./auth/sign-in/sign-in.component";
 import { SignUpComponent } from "./auth/sign-up/sign-up.component";
 import { RecipesComponent } from "./recipes/recipes.component";
 import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
@@ -19,7 +20,8 @@ const appRoutes: Routes = [
     { path: ":id/edit", component: RecipeEditComponent }
   ] },
   { path: "shopping-list", component: ShoppingListComponent },
-  { path: "signup", component: SignUpComponent }
+  { path: "signup", component: SignUpComponent },
+  { path: "signin", component: SignInComponent }
 ];
 
 @NgModule({
