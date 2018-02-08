@@ -14,14 +14,18 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSaveData() {
+  onSaveData(): void {
     this.recipesBackendService.saveRecipes()
       .subscribe(() => {
         alert("The recipes have been successfully saved!");
       });
   }
 
-  onFetchData() {
+  onFetchData(): void {
     this.recipesBackendService.getRecipes();
+  }
+
+  onLogout(): void {
+    this.authService.signoutUser();
   }
 }
