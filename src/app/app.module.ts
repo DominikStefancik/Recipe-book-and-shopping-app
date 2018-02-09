@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { AuthGuard } from "./auth/auth-guard.service";
 import { AuthService } from "./auth/auth.service";
 import { HeaderComponent } from "./header/header.component";
 import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
@@ -45,7 +46,12 @@ import { SignUpComponent } from "./auth/sign-up/sign-up.component";
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ShoppingListService, RecipesService, RecipesBackendService, AuthService],
+  providers: [
+    ShoppingListService,
+    RecipesService,
+    RecipesBackendService,
+    AuthService,
+    AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
