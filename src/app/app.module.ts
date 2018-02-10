@@ -9,21 +9,18 @@ import { AppComponent } from "./app.component";
 import { AuthGuard } from "./auth/auth-guard.service";
 import { AuthService } from "./auth/auth.service";
 import { HeaderComponent } from "./header/header.component";
-import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
-import { ShoppingListEditComponent } from "./shopping-list/shopping-list-edit/shopping-list-edit.component";
 import { ShoppingListService } from "./shopping-list/shopping-list.service";
 import { RecipesService } from "./recipes/recipes.service";
 import { RecipesBackendService } from "./recipes/recipes-backend.service";
 import { SignInComponent } from "./auth/sign-in/sign-in.component";
 import { SignUpComponent } from "./auth/sign-up/sign-up.component";
 import { SharedModule } from "./shared/shared.module";
+import { ShoppingListModule } from "./shopping-list/shopping-list.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingListEditComponent,
     SignInComponent,
     SignUpComponent
   ],
@@ -33,7 +30,8 @@ import { SharedModule } from "./shared/shared.module";
     FormsModule,
     AppRoutingModule,
     RecipesModule,
-    SharedModule
+    SharedModule,
+    ShoppingListModule
   ],
   providers: [
     ShoppingListService,

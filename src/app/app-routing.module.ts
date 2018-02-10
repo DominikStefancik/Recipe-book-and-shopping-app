@@ -9,7 +9,6 @@ import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 const appRoutes: Routes = [
   // "pathMatch" ensures that redirection happens only if full path is empty
   { path: "", redirectTo: "/recipes", pathMatch: "full" },
-  { path: "shopping-list", component: ShoppingListComponent },
   { path: "signup", component: SignUpComponent },
   { path: "signin", component: SignInComponent }
 ];
