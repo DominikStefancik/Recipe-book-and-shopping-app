@@ -11,12 +11,12 @@ import { AuthService } from "./auth/auth.service";
 import { HeaderComponent } from "./header/header.component";
 import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import { ShoppingListEditComponent } from "./shopping-list/shopping-list-edit/shopping-list-edit.component";
-import { DropdownDirective } from "./shared/dropdown.directive";
 import { ShoppingListService } from "./shopping-list/shopping-list.service";
 import { RecipesService } from "./recipes/recipes.service";
 import { RecipesBackendService } from "./recipes/recipes-backend.service";
 import { SignInComponent } from "./auth/sign-in/sign-in.component";
 import { SignUpComponent } from "./auth/sign-up/sign-up.component";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { SignUpComponent } from "./auth/sign-up/sign-up.component";
     HeaderComponent,
     ShoppingListComponent,
     ShoppingListEditComponent,
-    DropdownDirective,
     SignInComponent,
     SignUpComponent
   ],
@@ -33,14 +32,16 @@ import { SignUpComponent } from "./auth/sign-up/sign-up.component";
     HttpModule,
     FormsModule,
     AppRoutingModule,
-    RecipesModule
+    RecipesModule,
+    SharedModule
   ],
   providers: [
     ShoppingListService,
     RecipesService,
     RecipesBackendService,
     AuthService,
-    AuthGuard],
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
