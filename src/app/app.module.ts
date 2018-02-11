@@ -16,13 +16,12 @@ import { SignInComponent } from "./auth/sign-in/sign-in.component";
 import { SignUpComponent } from "./auth/sign-up/sign-up.component";
 import { SharedModule } from "./shared/shared.module";
 import { ShoppingListModule } from "./shopping-list/shopping-list.module";
+import { AuthModule } from "./auth/auth.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    SignInComponent,
-    SignUpComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +30,8 @@ import { ShoppingListModule } from "./shopping-list/shopping-list.module";
     AppRoutingModule,
     RecipesModule,
     SharedModule,
-    ShoppingListModule
+    ShoppingListModule,
+    AuthModule
   ],
   providers: [
     ShoppingListService,
