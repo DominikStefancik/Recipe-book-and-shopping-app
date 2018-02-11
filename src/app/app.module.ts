@@ -23,7 +23,6 @@ import { AuthModule } from "./auth/auth.module";
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule,
     AppRoutingModule,
     RecipesModule,
     SharedModule,
