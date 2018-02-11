@@ -9,11 +9,8 @@ import { AppComponent } from "./app.component";
 import { AuthGuard } from "./auth/auth-guard.service";
 import { AuthService } from "./auth/auth.service";
 import { HeaderComponent } from "./header/header.component";
-import { ShoppingListService } from "./shopping-list/shopping-list.service";
 import { RecipesService } from "./recipes/recipes.service";
 import { RecipesBackendService } from "./recipes/recipes-backend.service";
-import { SignInComponent } from "./auth/sign-in/sign-in.component";
-import { SignUpComponent } from "./auth/sign-up/sign-up.component";
 import { SharedModule } from "./shared/shared.module";
 import { ShoppingListModule } from "./shopping-list/shopping-list.module";
 import { AuthModule } from "./auth/auth.module";
@@ -34,7 +31,6 @@ import { AuthModule } from "./auth/auth.module";
     AuthModule
   ],
   providers: [
-    ShoppingListService,
     RecipesService,
     RecipesBackendService,
     AuthService,
