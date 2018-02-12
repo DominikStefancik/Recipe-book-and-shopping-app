@@ -5,6 +5,9 @@ import { AppRoutingModule } from "../app-routing.module";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { SharedModule } from "../shared/shared.module";
+import { AuthService } from "../auth/auth.service";
+import { RecipesService } from "../recipes/recipes.service";
+import { RecipesBackendService } from "../recipes/recipes-backend.service";
 
 @NgModule({
   declarations: [
@@ -19,6 +22,11 @@ import { SharedModule } from "../shared/shared.module";
   exports: [
     AppRoutingModule,
     HeaderComponent
+  ],
+  providers: [
+    RecipesService,
+    RecipesBackendService,
+    AuthService
   ]
 })
 export class CoreModule {}
