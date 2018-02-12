@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
-import { RecipesBackendService } from "../recipes/recipes-backend.service";
-import { AuthService } from "../auth/auth.service";
+import { RecipesBackendService } from "../../recipes/recipes-backend.service";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: "app-header",

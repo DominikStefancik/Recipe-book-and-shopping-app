@@ -6,27 +6,25 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthGuard } from "./auth/auth-guard.service";
 import { AuthService } from "./auth/auth.service";
-import { HeaderComponent } from "./header/header.component";
 import { RecipesService } from "./recipes/recipes.service";
 import { RecipesBackendService } from "./recipes/recipes-backend.service";
-import { SharedModule } from "./shared/shared.module";
 import { ShoppingListModule } from "./shopping-list/shopping-list.module";
 import { AuthModule } from "./auth/auth.module";
-import { HomeComponent } from "./home/home.component";
+import { CoreModule } from "./core/core.module";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    SharedModule,
     ShoppingListModule,
-    AuthModule
+    AuthModule,
+    CoreModule,
+    SharedModule
   ],
   providers: [
     RecipesService,
