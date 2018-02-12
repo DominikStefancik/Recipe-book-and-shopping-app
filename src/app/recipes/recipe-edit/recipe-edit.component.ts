@@ -77,6 +77,10 @@ export class RecipeEditComponent implements OnInit {
     this.navigateToParent();
   }
 
+  getIngredients(): FormArray {
+    return this.recipeForm.get("ingredients") as FormArray;
+  }
+
   onAddIngredient(): void {
     const ingredients = this.recipeForm.get("ingredients") as FormArray;
     ingredients.push(this.createIngredientRow(null, null));
