@@ -6,20 +6,33 @@
 
     <div class="navbar-default">
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a [routerLink]="['/recipes']">Recipes</a></li>
-        <li routerLinkActive="active"><a [routerLink]="['/shopping-list']">Shopping list</a></li>
+        <li routerLinkActive="active">
+          <a [routerLink]="['/recipes']">
+            <span class="fa fa-list"></span> Recipes
+          </a>
+        </li>
+        <li routerLinkActive="active">
+          <a [routerLink]="['/shopping-list']">
+            <span class="fa fa-shopping-cart"></span> Shopping list
+          </a>
+        </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-      	<ng-template [ngIf]="!authService.isUserAuthenticated()">      	
-	      	<li><a routerLink="/signup">Register</a></li>
-	      	<li><a routerLink="/signin">Login</a></li>
+      <ul class="nav navbar-nav navbar-right header-right">
+      	<ng-template [ngIf]="!authService.isUserAuthenticated()">
+	      	<li><a routerLink="/signup"><span class="fa fa-user-plus"></span> Register</a></li>
+	      	<li><a routerLink="/signin"><span class="fa fa-sign-in"></span> Login</a></li>
       	</ng-template>
-      	<li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isUserAuthenticated()">Logout</a></li>
+      	<li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isUserAuthenticated()">
+              <span class="fa fa-sign-out"></span> Logout
+            </a>
+        </li>
         <li class="dropdown" appDropdown *ngIf="authService.isUserAuthenticated()">
-          <a style="cursor: pointer;" class="dropdown-toggle" role="button">Manage data <span class="caret"></span></a>
+          <a style="cursor: pointer;" class="dropdown-toggle" role="button">
+            Manage data <span class="fa fa-caret-down"></span>
+          </a>
           <ul class="dropdown-menu">
-            <li><a style="cursor: pointer;" (click)="onSaveData()">Save data</a></li>
-            <li><a style="cursor: pointer;" (click)="onFetchData()">Fetch data</a></li>
+            <li><a style="cursor: pointer;" (click)="onSaveData()"><span class="fa fa-save"></span> Save data</a></li>
+            <li><a style="cursor: pointer;" (click)="onFetchData()"><span class="fa fa-download"></span> Fetch data</a></li>
           </ul>
         </li>
       </ul>

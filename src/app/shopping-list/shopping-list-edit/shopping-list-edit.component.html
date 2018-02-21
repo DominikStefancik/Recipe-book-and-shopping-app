@@ -14,9 +14,16 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-success" [disabled]="!f.valid">{{ editMode ? "Update" : "Add" }}</button>
-          <button type="button" class="btn btn-danger" *ngIf="editMode" (click)="onDeleteIngredient()">Delete</button>
-          <button type="button" class="btn btn-primary" (click)="onClearForm()">Clear</button>
+          <button type="submit" class="btn btn-success" [disabled]="!f.valid">
+            <span class="fa" [ngClass]="{ 'fa-pencil' : editMode, 'fa-plus' : !editMode }"></span> 
+            {{ editMode ? "Update" : "Add" }}
+          </button>
+          <button type="button" class="btn btn-danger" *ngIf="editMode" (click)="onDeleteIngredient()">
+            <span class="fa fa-trash"></span> Delete
+          </button>
+          <button type="button" class="btn btn-primary" (click)="onClearForm()">
+            <span class="fa fa-times-circle"></span> Clear
+          </button>
         </div>
       </div>
     </form>
