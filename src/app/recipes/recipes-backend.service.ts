@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import "rxjs/add/operator/map";
 
 import { Recipe } from "../domain/recipe";
@@ -10,16 +10,20 @@ const firebaseBackendUrl = "https://recipe-book-dc112.firebaseio.com/recipes.jso
 
 @Injectable()
 export class RecipesBackendService {
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private recipesService: RecipesService,
               private authService: AuthService) {}
 
   getRecipes() {
     const token = this.authService.getToken();
 
+    // new HttpClient by default automatically extracts the body from a response
+    // it provides a user with generic requests where he can explicitly say what type of data
+    // will be returned. Hence we can call the request like this
+    // 'this.http.get<Recipe[]>(firebaseBackendUrl + token)'
+
     return this.http.get(firebaseBackendUrl + token)
-      .map((response) => {
-        const recipes: Recipe[] = response.json();
+      .map((recipes: Recipe[]) => {
         recipes.forEach(recipe => {
           if (!recipe["ingredients"]) {
             recipe["ingredients"] = [];
