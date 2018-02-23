@@ -39,6 +39,12 @@ export class RecipesBackendService {
   saveRecipes() {
     const token = this.authService.getToken();
     const recipes = this.recipesService.getRecipes();
+
+    // if we want to create a request manually, this is the way
+    // const request = new HttpRequest("PUT", firebaseBackendUrl, recipes,
+    //                                 { params : new  HttpParams().set("auth", token), reportProgress: true });
+    // return this.http.request(request);
+
     return this.http.put(firebaseBackendUrl, recipes, { params : new  HttpParams().set("auth", token) });
   }
 }
