@@ -3,26 +3,22 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import "rxjs/add/operator/map";
 
 import { Recipe } from "../domain/recipe";
-import { RecipesService } from "./recipes.service";
-import { AuthService } from "../auth/auth.service";
+import { RecipesService } from "../recipes/recipes.service";
 
 const firebaseBackendUrl = "https://recipe-book-dc112.firebaseio.com/recipes.json";
 
 @Injectable()
-export class RecipesBackendService {
+export class DataStorageBackendService {
   constructor(private http: HttpClient,
-              private recipesService: RecipesService,
-              private authService: AuthService) {}
+              private recipesService: RecipesService) {}
 
   getRecipes() {
-    const token = this.authService.getToken();
-
     // new HttpClient by default automatically extracts the body from a response
     // it provides a user with generic requests where he can explicitly say what type of data
     // will be returned. Hence we can call the request like this
     // 'this.http.get<Recipe[]>(firebaseBackendUrl + token)'
 
-    return this.http.get(firebaseBackendUrl, { params : new  HttpParams().set("auth", token) })
+    return this.http.get(firebaseBackendUrl)
       .map((recipes: Recipe[]) => {
         recipes.forEach(recipe => {
           if (!recipe["ingredients"]) {
@@ -37,7 +33,6 @@ export class RecipesBackendService {
   }
 
   saveRecipes() {
-    const token = this.authService.getToken();
     const recipes = this.recipesService.getRecipes();
 
     // if we want to create a request manually, this is the way
@@ -45,6 +40,6 @@ export class RecipesBackendService {
     //                                 { params : new  HttpParams().set("auth", token), reportProgress: true });
     // return this.http.request(request);
 
-    return this.http.put(firebaseBackendUrl, recipes, { params : new  HttpParams().set("auth", token) });
+    return this.http.put(firebaseBackendUrl, recipes);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
-import { RecipesBackendService } from "../../recipes/recipes-backend.service";
+import { DataStorageBackendService } from "../../shared/data-storage-backend.service";
 import { AuthService } from "../../auth/auth.service";
 
 @Component({
@@ -9,20 +9,20 @@ import { AuthService } from "../../auth/auth.service";
   styleUrls: ["./header.component.css"]
 })
 export class HeaderComponent implements OnInit {
-  constructor(private recipesBackendService: RecipesBackendService,
+  constructor(private dataStorageBackendService: DataStorageBackendService,
               public authService: AuthService) {}
 
   ngOnInit() {}
 
   onSaveData(): void {
-    this.recipesBackendService.saveRecipes()
+    this.dataStorageBackendService.saveRecipes()
       .subscribe(() => {
         alert("The recipes have been successfully saved!");
       });
   }
 
   onFetchData(): void {
-    this.recipesBackendService.getRecipes();
+    this.dataStorageBackendService.getRecipes();
   }
 
   onLogout(): void {

@@ -7,7 +7,8 @@ import { HomeComponent } from "./home/home.component";
 import { SharedModule } from "../shared/shared.module";
 import { AuthService } from "../auth/auth.service";
 import { RecipesService } from "../recipes/recipes.service";
-import { RecipesBackendService } from "../recipes/recipes-backend.service";
+import { DataStorageBackendService } from "../shared/data-storage-backend.service";
+import { httpInterceptorProviders } from "../shared/http-interceptors/providers";
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { RecipesBackendService } from "../recipes/recipes-backend.service";
   ],
   providers: [
     RecipesService,
-    RecipesBackendService,
-    AuthService
+    DataStorageBackendService,
+    AuthService,
+    httpInterceptorProviders
   ]
 })
 export class CoreModule {}
