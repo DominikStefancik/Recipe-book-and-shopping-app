@@ -3,9 +3,10 @@ import { Ingredient } from "../../domain/ingredient";
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 
-export class AddIngredient implements Action {
+export class AddIngredientAction implements Action {
   readonly type = ADD_INGREDIENT;
-  payload: Ingredient;
+
+  constructor(public payload: Ingredient) {}
 }
 
-export type ShoppingListAction = AddIngredient;
+export type ShoppingListAction = AddIngredientAction;

@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs/Subscription";
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { Store } from "@ngrx/store";
 
 import { Ingredient } from "../domain/ingredient";
 import { ShoppingListService } from "./shopping-list.service";
@@ -9,25 +10,16 @@ import { ShoppingListService } from "./shopping-list.service";
   templateUrl: "./shopping-list.component.html",
   styleUrls: ["./shopping-list.component.css"]
 })
-export class ShoppingListComponent implements OnInit, OnDestroy {
-  ingredients: Ingredient[];
-  private ingredientsChangedSubscription: Subscription;
+export class ShoppingListComponent implements OnInit {
+  shoppingListState: Observable<{ingredients: Ingredient[]}>;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService,
+              // type of Store has to fit the global state
+              private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) { }
 
   ngOnInit() {
-    this.ingredients = this.shoppingListService.getIngredients();
-    this.ingredientsChangedSubscription = this.shoppingListService.ingredientsChanged
-          .subscribe((ingredients: Ingredient[]) => {
-            this.ingredients = ingredients;
-          });
-  }
-
-  ngOnDestroy() {
-    this.ingredientsChangedSubscription.unsubscribe();
-  }
-
-  onEditIngredient(index: number): void {
-    this.shoppingListService.ingredientEditingStarted.next(index);
+    // in the select method we define a "part" of our global state
+    // select returns an Observable
+    this.shoppingListState = this.store.select("shoppingList");
   }
 }
