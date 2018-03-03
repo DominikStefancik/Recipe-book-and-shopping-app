@@ -3,6 +3,10 @@ import * as ShoppingListActions from "./shopping-list.actions";
 import { Ingredient } from "../../domain/ingredient";
 import { ADD_INGREDIENT } from "./shopping-list.actions";
 
+export interface ShoppingListType {
+  shoppingList: { ingredients: Ingredient[] };
+}
+
 const initialState = {
   ingredients: [
     new Ingredient("Apple", 5),
@@ -20,6 +24,11 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
       return {
         ...state, // copy all properties of the "state" object
         ingredients: [...state.ingredients, action.payload] // overwrite ingredients property by adding a new one
+      };
+    case ShoppingListActions.ADD_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, ...action.payload]
       };
     default:
       return state;
