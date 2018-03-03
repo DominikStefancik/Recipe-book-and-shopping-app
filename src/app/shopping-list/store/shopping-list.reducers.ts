@@ -3,15 +3,19 @@ import * as ShoppingListActions from "./shopping-list.actions";
 import { Ingredient } from "../../domain/ingredient";
 import { ADD_INGREDIENT } from "./shopping-list.actions";
 
-export interface ShoppingListType {
-  shoppingList: { ingredients: Ingredient[] };
+export interface ShoppingListState {
+  ingredients: Ingredient[];
+  editedIngredient: Ingredient;
+  editedIngredientIndex: number;
 }
 
-const initialState = {
+const initialState: ShoppingListState = {
   ingredients: [
     new Ingredient("Apple", 5),
     new Ingredient("Orange", 10)
-  ]
+  ],
+  editedIngredient: null,
+  editedIngredientIndex: -1
 };
 
 // reducer is run everytime by ngrx when an action is dispatched
@@ -29,6 +33,45 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
       return {
         ...state,
         ingredients: [...state.ingredients, ...action.payload]
+      };
+    case ShoppingListActions.UPDATE_INGREDIENT:
+      // we update ingredient and ingredients array in an immutable way
+      const index = state.editedIngredientIndex;
+      const oldIngredient = state.ingredients[index];
+      const updatedIngredient = {
+        ...oldIngredient,
+        ...action.payload
+      };
+      const ingredients = [...state.ingredients];
+      ingredients[index] = updatedIngredient;
+      return {
+        ...state,
+        ingredients: ingredients,
+        // after updating an ingredient, we need to setup these two properties to the default value
+        editedIngredient: null,
+        editedIngredientIndex: -1
+      };
+      case ShoppingListActions.DELETE_INGREDIENT:
+      const updatedIngredients = [...state.ingredients];
+      updatedIngredients.splice(state.editedIngredientIndex, 1);
+      return {
+        ...state,
+        ingredients: updatedIngredients,
+        // after deleting an ingredient, we need to setup these two properties to the default value
+        editedIngredient: null,
+        editedIngredientIndex: -1
+      };
+    case ShoppingListActions.START_INGREDIENT_EDITING:
+      return {
+        ...state,
+        editedIngredientIndex: action.payload,
+        editedIngredient: state.ingredients[action.payload]
+      };
+    case ShoppingListActions.LEAVE_SHOPPING_LIST:
+      return {
+        ...state,
+        editedIngredientIndex: -1,
+        editedIngredient: null
       };
     default:
       return state;
