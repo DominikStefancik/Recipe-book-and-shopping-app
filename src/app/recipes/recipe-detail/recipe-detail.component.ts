@@ -6,7 +6,7 @@ import { Recipe } from "../../domain/recipe";
 import { RecipesService } from "../recipes.service";
 import { Ingredient } from "../../domain/ingredient";
 import { AddIngredientsAction } from "../../shopping-list/store/shopping-list.actions";
-import { AppState } from "../../shared/store/app.state";
+import { AppState } from "../../store/app.state";
 
 @Component({
   selector: "app-recipe-detail",
