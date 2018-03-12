@@ -9,7 +9,7 @@ import { ShoppingListModule } from "./shopping-list/shopping-list.module";
 import { AuthModule } from "./auth/auth.module";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
-import { shoppingListReducer } from "./shopping-list/store/shopping-list.reducers";
+import { appReducers } from "./store/app.reducers";
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { shoppingListReducer } from "./shopping-list/store/shopping-list.reducer
     SharedModule,
 
     // StoreModule need a list of reducers which will change the app state
-    StoreModule.forRoot({shoppingList : shoppingListReducer})
+    StoreModule.forRoot(appReducers)
   ],
   bootstrap: [AppComponent]
 })
