@@ -18,15 +18,16 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right header-right">
-      	<ng-template [ngIf]="!authService.isUserAuthenticated()">
+      	<ng-template [ngIf]="!(authState | async).isUserAuthenticated">
 	      	<li><a routerLink="/signup"><span class="fa fa-user-plus"></span> Register</a></li>
 	      	<li><a routerLink="/signin"><span class="fa fa-sign-in"></span> Login</a></li>
       	</ng-template>
-      	<li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isUserAuthenticated()">
+        <li><a style="cursor: pointer;" (click)="onLogout()" 
+               *ngIf="(authState | async).isUserAuthenticated">
               <span class="fa fa-sign-out"></span> Logout
             </a>
         </li>
-        <li class="dropdown" appDropdown *ngIf="authService.isUserAuthenticated()">
+        <li class="dropdown" appDropdown *ngIf="(authState | async).isUserAuthenticated">
           <a style="cursor: pointer;" class="dropdown-toggle" role="button">
             Manage data <span class="fa fa-caret-down"></span>
           </a>
