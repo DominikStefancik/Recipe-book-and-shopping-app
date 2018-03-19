@@ -12,6 +12,7 @@ const initialState: AuthState = {
 
 // auth operations are asynchronous, but reducers CANNOT handle asynchronous operations!
 // reducers take a state as an input and returns a new state. This has to happen synchronously!!!
+// asynchronous operation are an example of so called "side effects" in ngrx
 export function authReducer(state = initialState, action: AuthActions.AuthAction) {
   switch (action.type) {
     case (AuthActions.SIGN_UP):
@@ -26,11 +27,11 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
         isUserAuthenticated: false,
         authToken: null
       };
-      case (AuthActions.SET_TOKEN):
-        return {
-          ...state,
-          authToken: action.payload
-        };
+    case (AuthActions.SET_TOKEN):
+      return {
+        ...state,
+        authToken: action.payload
+      };
     default:
       return state;
   }

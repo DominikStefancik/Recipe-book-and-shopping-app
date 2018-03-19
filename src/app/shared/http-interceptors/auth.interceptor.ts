@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.store.select("auth")
-    .take(1)
+    .take(1) // ensures that the "select" method will be called only once
     .switchMap((authState: AuthState) => {
       const requestCopy = request.clone({ params: request.params.set("auth", authState.authToken) });
       return next.handle(requestCopy);

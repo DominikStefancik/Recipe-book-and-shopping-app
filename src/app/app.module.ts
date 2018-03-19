@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -10,6 +11,7 @@ import { AuthModule } from "./auth/auth.module";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
 import { appReducers } from "./store/app.reducers";
+import { AuthEffects } from "./auth/store/auth.effects";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { appReducers } from "./store/app.reducers";
     SharedModule,
 
     // StoreModule need a list of reducers which will change the app state
-    StoreModule.forRoot(appReducers)
+    StoreModule.forRoot(appReducers),
+    // registers all classes defining side effects handled by ngrx
+    EffectsModule.forRoot([AuthEffects])
   ],
   bootstrap: [AppComponent]
 })
