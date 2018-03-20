@@ -3,7 +3,7 @@ import { NgForm } from "@angular/forms";
 import { Store } from "@ngrx/store";
 
 import { AppState } from "../../store/app.reducers";
-import { DoSignUpAction } from "../store/auth.actions";
+import { DoSignupAction } from "../store/auth.actions";
 
 @Component({
   selector: "app-sign-up",
@@ -22,7 +22,7 @@ export class SignUpComponent implements OnInit {
     const email = this.signupForm.value.email;
     const password = this.signupForm.value.password;
 
-    this.store.dispatch(new DoSignUpAction({ username: email, password: password }));
+    this.store.dispatch(new DoSignupAction({ username: email, password: password }));
   }
 
 }

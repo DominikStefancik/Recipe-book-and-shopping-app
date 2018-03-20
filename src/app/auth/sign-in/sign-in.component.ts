@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 
 import { AuthService } from "../auth.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "../../store/app.reducers";
+import { DoSigninAction } from "../store/auth.actions";
 
 @Component({
   selector: "app-sign-in",
@@ -11,7 +14,7 @@ import { AuthService } from "../auth.service";
 export class SignInComponent implements OnInit {
   @ViewChild("f") signinForm: NgForm;
 
-  constructor(private authService: AuthService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
   }
@@ -20,6 +23,6 @@ export class SignInComponent implements OnInit {
     const email = this.signinForm.value.email;
     const password = this.signinForm.value.password;
 
-    this.authService.signinUser(email, password);
+    this.store.dispatch(new DoSigninAction({ username: email, password: password }));
   }
 }

@@ -5,7 +5,8 @@ import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/mergeMap";
 import * as firebase from "firebase";
 
-import { DO_SIGN_UP, DoSignUpAction, SignUpAction, SIGN_UP, SET_TOKEN } from "./auth.actions";
+import { DO_SIGNUP, DoSignupAction, SignUpAction, SIGN_UP, SET_TOKEN,
+  DO_SIGNIN, DoSigninAction, SIGN_IN } from "./auth.actions";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../store/app.reducers";
 
@@ -15,8 +16,8 @@ import { AppState } from "../../store/app.reducers";
 export class AuthEffects {
   @Effect() // register property as an effect in ngrx world
   // whenever the action DO_SIGN_UP is dispatched an observable will be fired
-  authSignup = this.actions.ofType(DO_SIGN_UP) // chooses only action of a given type
-      .map((action: DoSignUpAction) => {
+  authSignup = this.actions.ofType(DO_SIGNUP) // chooses only action of a given type
+      .map((action: DoSignupAction) => {
         return action.payload; // get the payload from the action
       })
       .switchMap((payload: {username: string, password: string}) => {
@@ -37,6 +38,25 @@ export class AuthEffects {
       });
       // at the end of the Effect's chain you typically dispatch a new effect
       // if you don't want to dispatch any effect, you must specify it in @Effect({dispatch: false})
+
+  @Effect()
+  authSignin = this.actions.ofType(DO_SIGNIN)
+      .map((action: DoSigninAction) => {
+        return action.payload;
+      })
+      .switchMap((payload: { username: string, password: string}) => {
+        return fromPromise(firebase.auth()
+            .signInWithEmailAndPassword(payload.username, payload.password));
+      })
+      .switchMap(() => {
+        return fromPromise(firebase.auth().currentUser.getIdToken());
+      })
+      .mergeMap((token: string) => {
+        return [
+          { type: SIGN_IN },
+          { type: SET_TOKEN, payload: token}
+        ];
+      });
 
   // "actions" property is an observable and represents all actions of the whole app
   // ngrx will be able to retrieve automatically actions we registered in our store
