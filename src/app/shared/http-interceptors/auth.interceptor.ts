@@ -3,7 +3,6 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 
-import { AuthService } from "../../auth/auth.service";
 import { AppState } from "../../store/app.reducers";
 import { AuthState } from "../../auth/store/auth.reducers";
 import "rxjs/add/operator/switchMap";
