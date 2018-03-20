@@ -6,6 +6,8 @@ export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 export const SET_TOKEN = "SET_TOKEN";
 
+// this class represents the actions of trying to sign up
+// and before the signup is successful
 export class DoSignUpAction implements Action {
   readonly type = DO_SIGN_UP;
 
