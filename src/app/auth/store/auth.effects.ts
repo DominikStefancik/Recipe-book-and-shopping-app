@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Effect, Actions } from "@ngrx/effects";
 import { fromPromise } from "rxjs/observable/fromPromise";
 import "rxjs/add/operator/switchMap";
@@ -7,8 +8,6 @@ import * as firebase from "firebase";
 
 import { DO_SIGNUP, DoSignupAction, SignUpAction, SIGN_UP, SET_TOKEN,
   DO_SIGNIN, DoSigninAction, SIGN_IN } from "./auth.actions";
-import { Store } from "@ngrx/store";
-import { AppState } from "../../store/app.reducers";
 
 // NgRx Effects are similar to reducers, they react when a certain action is dispatched,
 // BUT they DON'T change the state of the app
@@ -28,6 +27,7 @@ export class AuthEffects {
         return fromPromise(firebase.auth().currentUser.getIdToken());
       })
       .mergeMap((token: string) => { // I want to dispatch more actions, that's why "mergeMap"
+        this.router.navigate(["/"]);
         return [
           { type: SIGN_UP }, // type of effect which will be dispatched
 
@@ -52,6 +52,7 @@ export class AuthEffects {
         return fromPromise(firebase.auth().currentUser.getIdToken());
       })
       .mergeMap((token: string) => {
+        this.router.navigate(["/"]);
         return [
           { type: SIGN_IN },
           { type: SET_TOKEN, payload: token}
@@ -61,5 +62,5 @@ export class AuthEffects {
   // "actions" property is an observable and represents all actions of the whole app
   // ngrx will be able to retrieve automatically actions we registered in our store
   constructor(private actions: Actions,
-              private store: Store<AppState>) {}
+              private router: Router) {}
 }
