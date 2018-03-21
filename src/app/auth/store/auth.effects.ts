@@ -7,7 +7,7 @@ import "rxjs/add/operator/mergeMap";
 import * as firebase from "firebase";
 
 import { DO_SIGNUP, DoSignupAction, SignUpAction, SIGN_UP, SET_TOKEN,
-  DO_SIGNIN, DoSigninAction, SIGN_IN } from "./auth.actions";
+  DO_SIGNIN, DoSigninAction, SIGN_IN, SIGN_OUT } from "./auth.actions";
 
 // NgRx Effects are similar to reducers, they react when a certain action is dispatched,
 // BUT they DON'T change the state of the app
@@ -57,6 +57,12 @@ export class AuthEffects {
           { type: SIGN_IN },
           { type: SET_TOKEN, payload: token}
         ];
+      });
+
+  @Effect({ dispatch: false })
+  authSignout = this.actions.ofType(SIGN_OUT)
+      .do(() => {
+        this.router.navigate(["/"]);
       });
 
   // "actions" property is an observable and represents all actions of the whole app
