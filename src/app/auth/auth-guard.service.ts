@@ -13,6 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     return this.store.select("auth")
+      .take(1)
       .map((authState: AuthState) => {
         const isLoggedin = authState.isUserAuthenticated;
         if (!isLoggedin) {
