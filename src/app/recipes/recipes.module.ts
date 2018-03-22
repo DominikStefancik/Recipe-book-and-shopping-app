@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
+import { StoreModule } from "@ngrx/store";
 
 import { RecipesComponent } from "./recipes.component";
 import { RecipeListComponent } from "./recipe-list/recipe-list.component";
@@ -10,7 +11,7 @@ import { RecipeEmptyDetailComponent } from "./recipe-detail/recipe-empty-detail.
 import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";
 import { RecipesRoutingModule } from "./recipes-routing.module";
 import { SharedModule } from "../shared/shared.module";
-import { StoreModule } from "@ngrx/store";
+import { recipeReducer } from "./store/recipe.reducers";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { StoreModule } from "@ngrx/store";
     SharedModule,
 
     // this tells NgRx to add recipe reducers and state to the global app state once module is loaded
-    StoreModule.forFeature()
+    StoreModule.forFeature("recipes", recipeReducer)
   ]
 })
 export class RecipesModule {}

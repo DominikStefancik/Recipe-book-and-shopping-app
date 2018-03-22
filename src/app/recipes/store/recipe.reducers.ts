@@ -1,5 +1,6 @@
 import { Recipe } from "../../domain/recipe";
 import { Ingredient } from "../../domain/ingredient";
+import { RecipeAction, ADD_RECIPE, UPDATE_RECIPE, DELETE_RECIPE, SET_RECIPES } from "./recipe.actions";
 
 // this feature state is used to register lazily loaded part of the app
 export interface FeatureState {
@@ -37,6 +38,38 @@ const initialState: RecipeState = {
   ]
 };
 
-export function recipeReducer(state = initialState, action) {
-
+export function recipeReducer(state = initialState, action: RecipeAction) {
+  switch (action.type) {
+    case SET_RECIPES:
+      return {
+        ...state,
+        recipes: [...action.payload]
+      };
+    case ADD_RECIPE:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.payload]
+      };
+    case UPDATE_RECIPE:
+      const recipe = state.recipes[action.payload.index];
+      const updatedRecipe = {
+        ...recipe,
+        ...action.payload.updatedRecipe
+      };
+      const updatedRecipes = [...state.recipes];
+      updatedRecipes[action.payload.index] = updatedRecipe;
+      return {
+        ...state,
+        recipes: updatedRecipes
+      };
+    case DELETE_RECIPE:
+      const recipes = [...state.recipes];
+      recipes.splice(action.payload, 1);
+      return {
+        ...state,
+        recipes: recipes
+      };
+    default:
+      return state;
+  }
 }
