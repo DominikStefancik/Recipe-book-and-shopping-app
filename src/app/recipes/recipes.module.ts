@@ -10,6 +10,7 @@ import { RecipeEmptyDetailComponent } from "./recipe-detail/recipe-empty-detail.
 import { RecipeEditComponent } from "./recipe-edit/recipe-edit.component";
 import { RecipesRoutingModule } from "./recipes-routing.module";
 import { SharedModule } from "../shared/shared.module";
+import { StoreModule } from "@ngrx/store";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import { SharedModule } from "../shared/shared.module";
     CommonModule,
     ReactiveFormsModule,
     RecipesRoutingModule,
-    SharedModule
+    SharedModule,
+
+    // this tells NgRx to add recipe reducers and state to the global app state once module is loaded
+    StoreModule.forFeature()
   ]
 })
 export class RecipesModule {}
