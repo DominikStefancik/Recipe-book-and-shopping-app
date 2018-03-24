@@ -1,9 +1,10 @@
 import { Recipe } from "../../domain/recipe";
 import { Ingredient } from "../../domain/ingredient";
 import { RecipeAction, ADD_RECIPE, UPDATE_RECIPE, DELETE_RECIPE, SET_RECIPES } from "./recipe.actions";
+import { AppState } from "../../store/app.reducers";
 
 // this feature state is used to register lazily loaded part of the app
-export interface FeatureState {
+export interface FeatureState extends AppState {
   recipes: RecipeState;
 }
 
