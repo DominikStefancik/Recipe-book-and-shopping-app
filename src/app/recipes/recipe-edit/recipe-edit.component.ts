@@ -2,9 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { RecipesService } from "../recipes.service";
 import { Recipe } from "../../domain/recipe";
 import { Ingredient } from "../../domain/ingredient";
+import { Store } from "@ngrx/store";
+import { FeatureState, RecipeState } from "../store/recipe.reducers";
+import { UpdateRecipeAction, AddRecipeAction } from "../store/recipe.actions";
 
 @Component({
   selector: "app-recipe-edit",
@@ -12,38 +14,41 @@ import { Ingredient } from "../../domain/ingredient";
   styleUrls: ["./recipe-edit.component.css"]
 })
 export class RecipeEditComponent implements OnInit {
-  recipe: Recipe;
   id: number;
   editMode = false;
   recipeForm: FormGroup;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private recipesService: RecipesService,
-              private formBuilder: FormBuilder) {}
+              private formBuilder: FormBuilder,
+              private store: Store<FeatureState>) {}
 
   ngOnInit() {
     this.route.params
       .subscribe((params: Params) => {
         this.id = +params["id"];
         this.editMode = params["id"] != null;
-
-        if (this.editMode) {
-          this.recipe = this.recipesService.getRecipe(this.id);
-        }
-
         this.initForm();
       });
   }
 
   private initForm(): void {
-    const recipeName = this.editMode ? this.recipe.name : "";
-    const recipeImageUrl = this.editMode ? this.recipe.imageUrl : "";
-    const recipeDescription = this.editMode ? this.recipe.description : "";
-    const recipeIngredients =
-            this.editMode ? this.recipe.ingredients
-                                       .map(ingredient => this.createIngredientRow(ingredient.name, ingredient.amount))
-                          : [];
+    let recipeName = "";
+    let recipeImageUrl = "";
+    let recipeDescription = "";
+    let recipeIngredients = [];
+    if (this.editMode) {
+      this.store.select("recipes")
+            .take(1)
+            .subscribe((recipeState: RecipeState) => {
+              const recipe = recipeState.recipes[this.id];
+              recipeName = recipe.name;
+              recipeImageUrl = recipe.imageUrl;
+              recipeDescription = recipe.description;
+              recipeIngredients = recipe.ingredients
+                    .map(ingredient => this.createIngredientRow(ingredient.name, ingredient.amount));
+            });
+    }
 
     this.recipeForm = this.formBuilder.group({
       "name" : this.formBuilder.control(recipeName, Validators.required),
@@ -65,9 +70,12 @@ export class RecipeEditComponent implements OnInit {
       // the "recipe.value" object contains all data which are necessary to create a new Recipe object
       // since the names of the fields are the same as names in the Recipe constructor we can pass directly
       // the "recipeForm.value" as a recipe object and don"t have to call the Recipe constructor explicitly
-      this.recipesService.updateRecipe(this.id, this.recipeForm.value);
+      this.store.dispatch(new UpdateRecipeAction({
+        index: this.id,
+        updatedRecipe: this.recipeForm.value
+      }));
     } else {
-      this.recipesService.addRecipe(this.recipeForm.value);
+      this.store.dispatch(new AddRecipeAction(this.recipeForm.value));
     }
 
     this.navigateToParent();
