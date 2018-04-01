@@ -7,7 +7,8 @@ import { AppState } from "../../store/app.reducers";
 import { AuthState } from "../../auth/store/auth.reducers";
 import { SignOutAction } from "../../auth/store/auth.actions";
 import { FETCH_RECIPES_FROM_BACKEND,
-  FetchRecipesFromBackendAction } from "../../recipes/store/recipe.actions";
+  FetchRecipesFromBackendAction,
+  StoreRecipesOnBackendAction} from "../../recipes/store/recipe.actions";
 
 @Component({
   selector: "app-header",
@@ -25,10 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onSaveData(): void {
-    this.dataStorageBackendService.saveRecipes()
-      .subscribe(() => {
-        alert("The recipes have been successfully saved!");
-      });
+    this.store.dispatch(new StoreRecipesOnBackendAction());
   }
 
   onFetchData(): void {
