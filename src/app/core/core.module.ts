@@ -5,8 +5,6 @@ import { AppRoutingModule } from "../app-routing.module";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { SharedModule } from "../shared/shared.module";
-import { RecipesService } from "../recipes/recipes.service";
-import { DataStorageBackendService } from "../shared/data-storage-backend.service";
 import { httpInterceptorProviders } from "../shared/http-interceptors/providers";
 
 @NgModule({
@@ -24,8 +22,6 @@ import { httpInterceptorProviders } from "../shared/http-interceptors/providers"
     HeaderComponent
   ],
   providers: [
-    RecipesService,
-    DataStorageBackendService,
     httpInterceptorProviders
   ]
 })

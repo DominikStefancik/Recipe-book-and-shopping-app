@@ -18,8 +18,7 @@ import { FETCH_RECIPES_FROM_BACKEND,
 export class HeaderComponent implements OnInit {
   authState: Observable<AuthState>;
 
-  constructor(private dataStorageBackendService: DataStorageBackendService,
-              private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.authState = this.store.select("auth");
