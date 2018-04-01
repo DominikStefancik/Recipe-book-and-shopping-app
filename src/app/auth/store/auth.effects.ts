@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Effect, Actions } from "@ngrx/effects";
 import { fromPromise } from "rxjs/observable/fromPromise";
+import "rxjs/add/operator/map";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/mergeMap";
 import * as firebase from "firebase";
