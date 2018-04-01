@@ -39,27 +39,8 @@ export class RecipesService {
     return this.recipes.slice(); // get a copy of the recipes array, so other objects cannot change the original
   }
 
-  getRecipe(index: number): Recipe {
-    return this.recipes[index];
-  }
-
   setRecipes(recipes: Recipe[]): void {
     this.recipes = recipes;
-    this.recipesChanged.next(this.getRecipes());
-  }
-
-  addRecipe(recipe: Recipe): void {
-    this.recipes.push(recipe);
-    this.recipesChanged.next(this.getRecipes());
-  }
-
-  updateRecipe(index: number, newRecipe: Recipe): void {
-    this.recipes[index] = newRecipe;
-    this.recipesChanged.next(this.getRecipes());
-  }
-
-  deleteRecipe(index: number): void {
-    this.recipes.splice(index, 1);
     this.recipesChanged.next(this.getRecipes());
   }
 }

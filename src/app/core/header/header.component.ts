@@ -6,6 +6,8 @@ import { DataStorageBackendService } from "../../shared/data-storage-backend.ser
 import { AppState } from "../../store/app.reducers";
 import { AuthState } from "../../auth/store/auth.reducers";
 import { SignOutAction } from "../../auth/store/auth.actions";
+import { FETCH_RECIPES_FROM_BACKEND,
+  FetchRecipesFromBackendAction } from "../../recipes/store/recipe.actions";
 
 @Component({
   selector: "app-header",
@@ -30,7 +32,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onFetchData(): void {
-    this.dataStorageBackendService.getRecipes();
+    this.store.dispatch(new FetchRecipesFromBackendAction());
   }
 
   onLogout(): void {
